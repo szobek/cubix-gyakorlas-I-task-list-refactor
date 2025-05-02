@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private _username: WritableSignal<string | undefined> = signal(undefined);
-  router = inject(Router);
+  private readonly router = inject(Router);
   constructor() {
     this.loadUser();
   }

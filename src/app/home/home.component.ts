@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 
 @Component({
@@ -10,11 +10,12 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  authService=inject(AuthService);
+  authService:AuthService=inject(AuthService);
+  router:Router=inject(Router)
 constructor() { 
   this.authService.loadUser();
   if(this.authService.username() === undefined){
-    this.authService.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 }
 

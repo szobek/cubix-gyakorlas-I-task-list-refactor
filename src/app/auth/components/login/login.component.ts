@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 authService=inject(AuthService);
+router:Router=inject(Router);
 protected username: string = '';
 
 constructor() {
   if(this.authService.username() !== undefined){
-    this.authService.router.navigate(['']);
+    this.router.navigate(['']);
   }
 }
 login(){
