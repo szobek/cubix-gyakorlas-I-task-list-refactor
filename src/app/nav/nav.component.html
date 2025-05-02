@@ -2,12 +2,12 @@
     <div class="nav-items">
         <ul>
             <li [routerLink]="['']" routerLinkActive="active">Home</li>
-            <li routerLink="/create" routerLinkActive="active">New task</li>
+            <li routerLinkActive="active">New task</li>
         </ul>
     </div>
     <div class="user-details">
-        <button class="button-logout">
-            logout
+        <button class="button-logout" (click)="authService.logout()">
+            <img src="logout.svg" alt="">
         </button>
     </div>
 </nav>

@@ -11,5 +11,22 @@ nav{
         list-style: none;
         display: flex;
         gap: 20px;
+        li{
+            cursor: pointer;
+            &.active{
+                font-weight: bold;
+                text-decoration: underline;
+                font-style: italic;
+            }
+        }
+    }
+    button{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        img{
+            width: 30px;
+            height: 30px;
+        }
     }
 }
