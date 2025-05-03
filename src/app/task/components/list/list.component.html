@@ -2,16 +2,18 @@
   <div>
     <h3>{{ task.title }}</h3>
     <p>{{ task.description }}</p>
-  </div>
+    <p>complete: {{ task.completed }}</p>
+</div>
 }@empty {
-  <p>No incompleted tasks available</p>
+    <p>No incompleted tasks available</p>
 }
 
 @for(task of completedTasks();track task.id) {
-  <div>
-    <h3>{{ task.title }}</h3>
-    <p>{{ task.description }}</p>
-  </div>
+    <div>
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <p>complete: {{ task.completed }}</p>
+    </div>
 }@empty {
     <p>No completed tasks available</p>
   }
