@@ -12,6 +12,13 @@ private _tasks: WritableSignal<Task[]> = signal<Task[]>([])
   get tasks() {
     return this._tasks;
   }
+  createTask(task: Task) {
+    const tasks = this._tasks();
+    task.id = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+    this._tasks.update(tasks => [...tasks, task]);
+    this.saveTaskToLocalStorage();
+  }
+
   saveTaskToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(this._tasks()));
   }
