@@ -1,1 +1,17 @@
-<p>list works!</p>
+@for(task of incompletedTasks();track task.id) {
+  <div>
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+  </div>
+}@empty {
+  <p>No incompleted tasks available</p>
+}
+
+@for(task of completedTasks();track task.id) {
+  <div>
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+  </div>
+}@empty {
+    <p>No completed tasks available</p>
+  }
