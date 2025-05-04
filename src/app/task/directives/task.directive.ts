@@ -7,12 +7,11 @@ import { Task } from '../models/task';
 export class TaskDirective {
 @Input('cgyirTask') task?:Task
 private readonly el: ElementRef=inject(ElementRef)
-  
    ngOnInit() {
     if (this.task?.completed) {
-      this.el.nativeElement.style.backgroundColor = '#52AA5E';
+      this.el.nativeElement.style.backgroundColor='#52AA5E';
     }else{
-      this.el.nativeElement.style.backgroundColor = '#d39696';
+      this.el.nativeElement.style.backgroundColor='#d39696';
     }
    }
 

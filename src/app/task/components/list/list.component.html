@@ -1,7 +1,6 @@
-Incompleted Tasks: <b> {{incompletedTasks().length}}</b>
-
+Incompleted Tasks:<b>{{incompletedTasks().length}}</b>
 @for(task of incompletedTasks();track task.id) {
- <cgyir-task-item [task]="task" />
+    <cgyir-task-item [task]="task" />
 }@empty {
     <p>No incompleted tasks available</p>
 }

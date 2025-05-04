@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TaskTitlePipe implements PipeTransform {
 
-  transform(title: string,  ...args: unknown[]): unknown {
-    return `${args[0]}: ${title}`;
+  transform(title: string,  prefix: string): string {
+    return `${prefix}: ${title}`;
   }
 
 }

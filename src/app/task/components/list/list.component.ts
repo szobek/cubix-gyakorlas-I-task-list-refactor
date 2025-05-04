@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { TaskDirective } from '../../directives/task.directive';
 import { TaskItemComponent } from '../task-item/task-item.component';
 
 @Component({

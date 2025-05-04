@@ -23,16 +23,16 @@ export class CreateComponent {
     completed: false,
   };
   saveTask() {
-    if (!this.task.title || !this.task.description) return;
-    if (this.task.title.length > 20 || this.task.description.length > 200)
+    if (!this.task.title||!this.task.description) return;
+    if (this.task.title.length>20||this.task.description.length>200)
       return;
-    if (this.task.title.trim() === '' || this.task.description.trim() === '')
+    if (this.task.title.trim()===''||this.task.description.trim()==='')
       return;
     const task = { ...this.task };
     this.taskService.createTask(task).then(() => {
       this.router.navigateByUrl('/tasks/list');
     });
-    this.task.title = '';
-    this.task.description = '';
+    this.task.title='';
+    this.task.description='';
   }
 }
