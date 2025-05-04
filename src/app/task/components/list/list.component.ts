@@ -9,6 +9,11 @@ import { TaskService } from '../../services/task.service';
 })
 export class ListComponent {
   taskService:TaskService=inject(TaskService)
-completedTasks=computed(()=>this.taskService.tasks().filter(task=>task.completed))
-incompletedTasks=computed(()=>this.taskService.tasks().filter(task=>!task.completed))
+  incompletedTasks
+  completedTasks
+  constructor() {
+    this.completedTasks=computed(()=>this.taskService.tasks().filter(task=>task.completed))
+    this.incompletedTasks=computed(()=>this.taskService.tasks().filter(task=>!task.completed))
+  console.log(this.taskService.tasks())
+}
 }

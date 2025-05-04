@@ -3,6 +3,7 @@ import { Task } from '../../models/task';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cgyir-create',
@@ -13,6 +14,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class CreateComponent {
   taskService: TaskService = inject(TaskService);
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
   task: Task = {
     id: 0,
     title: '',
@@ -21,7 +23,15 @@ export class CreateComponent {
     completed: false,
   };
   saveTask() {
-    this.taskService.createTask(this.task);
+    if (!this.task.title || !this.task.description) return;
+    if (this.task.title.length > 20 || this.task.description.length > 200)
+      return;
+    if (this.task.title.trim() === '' || this.task.description.trim() === '')
+      return;
+    const task = { ...this.task };
+    this.taskService.createTask(task).then(() => {
+      this.router.navigateByUrl('/tasks/list');
+    });
     this.task.title = '';
     this.task.description = '';
   }
