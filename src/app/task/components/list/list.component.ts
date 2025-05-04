@@ -16,6 +16,5 @@ export class ListComponent {
   constructor() {
     this.completedTasks=computed(()=>this.taskService.tasks().filter(task=>task.completed))
     this.incompletedTasks=computed(()=>this.taskService.tasks().filter(task=>!task.completed))
-  console.log(this.taskService.tasks())
 }
 }

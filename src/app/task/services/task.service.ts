@@ -39,4 +39,10 @@ export class TaskService {
     );
     this.saveTaskToLocalStorage();
   }
+  deleteTaskById(id: number) {
+    if (!id) return;
+    if(!confirm('Are you sure you want to delete this task?')) return;
+    this._tasks.update((tasks) => tasks.filter((t) => t.id !== id));
+    this.saveTaskToLocalStorage();
+  }
 }
