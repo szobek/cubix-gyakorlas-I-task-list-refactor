@@ -12,15 +12,14 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 authService=inject(AuthService);
 router:Router=inject(Router);
-protected username: string = '';
-
+protected username: string='';
 constructor() {
-  if(this.authService.username() !== undefined){
+  if(this.authService.username()!==undefined){
     this.router.navigate(['']);
   }
 }
 login(){
   this.authService.login(this.username);
-  this.username = '';
+  this.username='';
 }
 }

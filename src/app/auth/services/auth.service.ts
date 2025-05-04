@@ -5,22 +5,19 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private _username: WritableSignal<string | undefined> = signal(undefined);
-  private readonly router = inject(Router);
+  private _username: WritableSignal<string | undefined>=signal(undefined);
+  private readonly router=inject(Router);
   constructor() {
     this.loadUser();
   }
-
   loadUser() {
-    if (this._username() === undefined) {
+    if (this._username()===undefined) {
       this._username.set(localStorage.getItem('username') || undefined);
     }
   }
-
   get username() {
     return this._username;
   }
-
   login(username: string) {
     if (username.length > 0) {
       localStorage.setItem('username', username);
@@ -28,7 +25,6 @@ export class AuthService {
       this.router.navigate(['']);
     }
   }
-
   logout() {
     localStorage.removeItem('username');
     this.router.navigate(['/login']);
