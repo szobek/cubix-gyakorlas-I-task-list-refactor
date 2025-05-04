@@ -9,6 +9,10 @@
         <div class="author">
             <p>Author: {{ task.user }}</p>
         </div>
-        <button (click)="taskService.modifyTaskComplete(task)">complete</button>
+        @if(task.completed){
+            <button (click)="taskService.modifyTaskComplete(task)">incomplete</button>
+        }@else{
+            <button (click)="taskService.modifyTaskComplete(task)">complete</button>
+        }
     </div>
 }
