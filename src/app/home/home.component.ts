@@ -1,22 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { NavComponent } from '../nav/nav.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'cgyir-home',
-  imports: [NavComponent, RouterOutlet],
+  imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  authService:AuthService=inject(AuthService);
-  router:Router=inject(Router)
-constructor() { 
-  this.authService.loadUser();
-  if(this.authService.username() === undefined){
-    this.router.navigate(['/login']);
+  authService: AuthService=inject(AuthService);
+  router: Router=inject(Router);
+  constructor() {
+    this.authService.loadUser();
+    if (this.authService.username()===undefined) {
+      this.router.navigate(['/login']);
+    }
   }
-}
-
 }
