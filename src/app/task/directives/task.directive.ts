@@ -10,9 +10,9 @@ private readonly el: ElementRef=inject(ElementRef)
   
    ngOnInit() {
     if (this.task?.completed) {
-      this.el.nativeElement.style.backgroundColor = 'green';
+      this.el.nativeElement.style.backgroundColor = '#52AA5E';
     }else{
-      this.el.nativeElement.style.backgroundColor = 'red';
+      this.el.nativeElement.style.backgroundColor = '#d39696';
     }
    }
 
