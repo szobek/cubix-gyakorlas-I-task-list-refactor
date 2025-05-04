@@ -14,5 +14,6 @@
         }@else{
             <button (click)="taskService.modifyTaskComplete(task)">complete</button>
         }
+        <button [routerLink]="['..',task.id]" routerLinkActive="router-link-active" >View</button>
     </div>
 }
