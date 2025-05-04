@@ -1,3 +1,5 @@
+Incompleted Tasks: <b> {{incompletedTasks().length}}</b>
+
 @for(task of incompletedTasks();track task.id) {
  <cgyir-task-item [task]="task" />
 }@empty {
