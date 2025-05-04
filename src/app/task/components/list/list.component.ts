@@ -1,9 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import { TaskTitlePipe } from '../../pipes/task-title.pipe';
 
 @Component({
   selector: 'cgyir-list',
-  imports: [],
+  imports: [TaskTitlePipe],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })

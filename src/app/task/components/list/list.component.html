@@ -1,6 +1,6 @@
 @for(task of incompletedTasks();track task.id) {
   <div>
-    <h3>{{ task.title }}</h3>
+    <h3>{{ task.title|taskTitle:'Task title' }}</h3>
     <p>{{ task.description }}</p>
     <p>complete: {{ task.completed }}</p>
     <button (click)="taskService.modifyTaskComplete(task)">complete</button>
