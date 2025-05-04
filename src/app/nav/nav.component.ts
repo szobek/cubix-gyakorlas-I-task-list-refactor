@@ -10,5 +10,4 @@ import { AuthService } from '../auth/services/auth.service';
 })
 export class NavComponent {
   authService=inject(AuthService);
-
 }
