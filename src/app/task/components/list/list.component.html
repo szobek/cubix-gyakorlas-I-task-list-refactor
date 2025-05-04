@@ -1,21 +1,11 @@
 @for(task of incompletedTasks();track task.id) {
-  <div [cgyirTask]="task">
-    <h3>{{ task.title|taskTitle:'Task title' }}</h3>
-    <p>{{ task.description }}</p>
-    <p>complete: {{ task.completed }}</p>
-    <button (click)="taskService.modifyTaskComplete(task)">complete</button>
-</div>
+ <cgyir-task-item [task]="task" />
 }@empty {
     <p>No incompleted tasks available</p>
 }
 <hr>
 @for(task of completedTasks();track task.id) {
-    <div  [cgyirTask]="task">
-        <h3>{{ task.title }}</h3>
-        <p>{{ task.description }}</p>
-        <p>complete: {{ task.completed }}</p>
-        <button (click)="taskService.modifyTaskComplete(task)">incomplete</button>
-    </div>
+    <cgyir-task-item [task]="task" />
 }@empty {
     <p>No completed tasks available</p>
   }

@@ -1,0 +1,22 @@
+.task-item {
+    .title {
+        width: 100%;
+    }
+    .description {
+        text-align: left;
+    }
+    .author {
+        text-align: right;
+
+    }
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #4e4e4e;
+    flex-direction: column;
+    button {
+        border: none;
+        cursor: pointer;
+    }
+}

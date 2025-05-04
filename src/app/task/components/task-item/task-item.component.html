@@ -1,0 +1,14 @@
+@if(task){
+    <div class="task-item" [cgyirTask]="task">
+        <div class="title">
+            <h3>{{ task.title|taskTitle:'Task title' }}</h3>
+        </div>
+        <div class="description">
+            <p>{{ task.description }}</p>
+        </div>
+        <div class="author">
+            <p>Author: {{ task.user }}</p>
+        </div>
+        <button (click)="taskService.modifyTaskComplete(task)">complete</button>
+    </div>
+}
