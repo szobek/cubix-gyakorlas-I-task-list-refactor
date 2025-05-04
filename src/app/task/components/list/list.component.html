@@ -1,5 +1,5 @@
 @for(task of incompletedTasks();track task.id) {
-  <div>
+  <div [cgyirTask]="task">
     <h3>{{ task.title|taskTitle:'Task title' }}</h3>
     <p>{{ task.description }}</p>
     <p>complete: {{ task.completed }}</p>
@@ -10,7 +10,7 @@
 }
 <hr>
 @for(task of completedTasks();track task.id) {
-    <div>
+    <div  [cgyirTask]="task">
         <h3>{{ task.title }}</h3>
         <p>{{ task.description }}</p>
         <p>complete: {{ task.completed }}</p>
