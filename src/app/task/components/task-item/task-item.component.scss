@@ -2,12 +2,15 @@
     .title {
         width: 100%;
     }
+
     .description {
         text-align: left;
     }
+
     .author {
         text-align: right;
     }
+
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -16,7 +19,18 @@
     flex-direction: column;
     gap: 10px;
     margin: 10px 0;
+
     button {
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+
+            path {
+                fill: #444444;
+            }
+        }
+
+        background-color: transparent;
         border: none;
         cursor: pointer;
     }
