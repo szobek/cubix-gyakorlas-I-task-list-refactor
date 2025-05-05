@@ -1,5 +1,10 @@
 <div>
     <input type="text" placeholder="title" maxlength="20" name="" id="" [(ngModel)]="task.title">
     <input type="text" name="" id="" placeholder="description" maxlength="200" [(ngModel)]="task.description">
+    <select name="" id="" [(ngModel)]="task.category" >
+        @for(category of categoryValues; track category){
+            <option value="{{category}}">{{category}}</option>
+        }
+    </select>
     <button (click)="saveTask()">save</button>
 </div>

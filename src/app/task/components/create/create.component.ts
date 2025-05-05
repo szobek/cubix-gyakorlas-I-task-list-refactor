@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { Categories } from '../../enums/categories.enum';
 
 @Component({
   selector: 'cgyir-create',
@@ -15,12 +16,15 @@ export class CreateComponent {
   taskService: TaskService = inject(TaskService);
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
+  categoriesEnum=Categories
+  categoryValues = Object.values(Categories);
   task: Task = {
     id: 0,
     title: '',
     description: '',
     user: this.authService.username()?.toString() || '',
     completed: false,
+    category: Categories.NOTIMPORTANT,
   };
   saveTask() {
     if (!this.task.title||!this.task.description) return;
