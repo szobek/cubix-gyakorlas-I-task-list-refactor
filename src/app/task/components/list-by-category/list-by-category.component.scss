@@ -1,6 +1,13 @@
-.task-card{
-  margin: 10px;
-  max-width: 400px;
+.category-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  .task-card {
+    margin: 10px;
+    max-width: 400px;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,13 +16,11 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    
+  }
 }
