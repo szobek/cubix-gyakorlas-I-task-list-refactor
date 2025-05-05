@@ -1,8 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, HostListener, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { Categories } from '../../enums/categories.enum';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'cgyir-list',
@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ListComponent {
   taskService: TaskService = inject(TaskService);
+  router:Router=inject(Router);
   categoriesEnum = Categories;
   categoryValues = Object.values(Categories);
   incompletedTasks;
@@ -24,4 +25,11 @@ export class ListComponent {
       this.taskService.tasks().filter((task) => !task.completed)
     );
   }
+  @HostListener('window:keydown', ['$event'])
+  handleKeydown(event: KeyboardEvent): void {
+    if (event.code === 'KeyN' && event.altKey) {
+      this.router.navigateByUrl('/tasks/create');
+    }
+  }
+  
 }
