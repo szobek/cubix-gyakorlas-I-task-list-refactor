@@ -14,7 +14,10 @@ category: string | null = null;
 activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 taskService: TaskService = inject(TaskService);
 tasks:Task[] = [];
-
+tasksCountSignal = computed(() => this.tasks.length);
+get taskCount() {
+  return this.tasksCountSignal()=== 1 ? '1 task' : `${this.tasksCountSignal()} tasks`;
+}
 ngOnInit(): void {
   this.category = this.activatedRoute.snapshot.paramMap.get('category');
   this.taskService.tasks().forEach((task: Task) => {
