@@ -1,5 +1,5 @@
+<p>{{taskCount}}</p> 
 <div class="category-wrapper">
-{{taskCount}}
     @for (task of tasks; track task.id) {
         <div class="task-card" [routerLink]="['../../',task.id]" >
             <h3>{{ task.title }}</h3>
