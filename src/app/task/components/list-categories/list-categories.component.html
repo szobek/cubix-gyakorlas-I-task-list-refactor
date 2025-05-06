@@ -8,9 +8,10 @@
     <tbody>
         @for (item of categories(); track item.id) {
          <tr>
-            <td>{{item.name}}</td>
+            <td >{{item.name}}</td>
             <td>@if(item.name!=='Default'){
                 <button (click)="taskService.deleteCategoryById(item.id)">delete</button>    
+                <button routerLink="/tasks/category/{{item.name}}">list tasks</button>
             }</td>
          </tr>
         }
