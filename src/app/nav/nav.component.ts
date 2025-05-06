@@ -24,8 +24,8 @@ export class NavComponent {
   ngOnInit() {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(event => {
-        this.toggleMenu();
+      .subscribe(() => {
+        this.menuOpen = false;
       });
   }
   authService = inject(AuthService);
