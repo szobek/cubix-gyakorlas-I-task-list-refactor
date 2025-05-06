@@ -36,7 +36,7 @@ export class TaskService {
         return;
       }
       this._categories.update((categories) => [...categories, category]);
-      this.saveCategoryToLocalStorage();
+      this.saveCategoriesToLocalStorage();
       resolve();
     });
   }
@@ -65,7 +65,7 @@ export class TaskService {
     this.saveTaskToLocalStorage();
   }
 
-  saveCategoryToLocalStorage(): void {
+  saveCategoriesToLocalStorage(): void {
     localStorage.setItem('categories', JSON.stringify(this._categories()));
   }
   loadCategoriesFromLocalStorage(): void {
