@@ -1,9 +1,18 @@
 .task-item {
+    border-radius: 20px;
+    height: 170px;
+    width: 70vw;
     .title {
         width: 100%;
+        h3{
+            margin: 0;
+        }
     }
     .description {
         text-align: left;
+        p{
+            margin: 0;
+        }
     }
     .author {
         text-align: right;
@@ -15,7 +24,7 @@
     color: #4e4e4e;
     flex-direction: column;
     gap: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     button {
         svg {
             width: 1.5rem;
