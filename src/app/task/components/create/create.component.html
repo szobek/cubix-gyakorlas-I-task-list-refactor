@@ -1,6 +1,6 @@
 <div>
-    <input type="text" placeholder="title" maxlength="20" name="" id="" [(ngModel)]="task.title">
-    <input type="text" name="" id="" placeholder="description" maxlength="200" [(ngModel)]="task.description">
+    <input class="base-input" type="text" placeholder="title" maxlength="20" name="" id="" [(ngModel)]="task.title">
+    <input type="text" class="base-input" name="" id="" placeholder="description" maxlength="200" [(ngModel)]="task.description">
     <select class="base-select" name="" id="" [(ngModel)]="task.category" >
         @for(category of categoryValues; track category){
             <option value="{{category?.name}}">{{category?.name}}</option>
