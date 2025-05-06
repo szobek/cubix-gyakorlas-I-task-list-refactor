@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Task } from '../../models/task';
 import { TaskService } from '../../services/task.service';
@@ -13,8 +13,19 @@ export class ListByCategoryComponent {
 category: string | null = null;
 activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 taskService: TaskService = inject(TaskService);
-tasks:Task[] = [];
+private readonly tasks:Task[] = [];
+importantTasks
+notImportantTasks
 tasksCountSignal = computed(() => this.tasks.length);
+constructor(){
+  this.importantTasks = computed(() =>
+    this.tasks.filter((task) => task.important)
+  );
+  this.notImportantTasks = computed(() =>
+    this.tasks.filter((task) => !task.important)
+  );
+
+}
 get taskCount() {
   return this.tasksCountSignal()=== 1 ? '1 task' : `${this.tasksCountSignal()} tasks`;
 }

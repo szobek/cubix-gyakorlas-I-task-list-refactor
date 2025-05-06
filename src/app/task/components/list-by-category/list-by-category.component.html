@@ -1,10 +1,21 @@
+<h2>Tasks in {{category}}</h2>
 <p>{{taskCount}}</p> 
+<p>important tasks</p>
 <div class="category-wrapper">
-    @for (task of tasks; track task.id) {
+    @for (task of importantTasks(); track task.id) {
         <div [class.important]="task.important" class="task-card" [routerLink]="['../../',task.id]" >
             <h3>{{ task.title }}</h3>
             <p>{{ task.description }}</p>
         </div>
     }
-    
+</div>
+<hr>
+<p>not important tasks</p>
+<div class="category-wrapper">
+    @for (task of notImportantTasks(); track task.id) {
+        <div [class.important]="task.important" class="task-card" [routerLink]="['../../',task.id]" >
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+        </div>
+    }
 </div>
