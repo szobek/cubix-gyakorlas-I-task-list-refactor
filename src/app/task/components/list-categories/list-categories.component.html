@@ -1,4 +1,16 @@
-<p>list-categories works!</p>
-@for (item of categories; track $index) {
-    <p>{{item.name}}</p>
-}
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of categories; track item.id) {
+         <tr>
+            <td>{{item.name}}</td>
+         </tr>
+        }
+    </tbody>
+</table>
+
+
