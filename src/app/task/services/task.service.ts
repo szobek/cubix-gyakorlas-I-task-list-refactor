@@ -40,7 +40,6 @@ export class TaskService {
       resolve();
     });
   }
-
   saveTaskToLocalStorage(): void {
     localStorage.setItem('tasks', JSON.stringify(this._tasks()));
   }
@@ -64,11 +63,21 @@ export class TaskService {
     this._tasks.update((tasks) => tasks.filter((t) => t.id!==id));
     this.saveTaskToLocalStorage();
   }
-
   saveCategoriesToLocalStorage(): void {
     localStorage.setItem('categories', JSON.stringify(this._categories()));
   }
   loadCategoriesFromLocalStorage(): void {
     this._categories.set(JSON.parse(localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'));
+  }
+  deleteCategoryById(id: number): void {
+    if (!id) return;
+    if(!confirm('Are you sure you want to delete this category?')) return;
+    if(id===1) {
+      alert('You cannot delete the default category.');
+      return;
+    }
+    this._categories.update((categories) => categories.filter((c) => c.id!==id));
+    this.saveCategoriesToLocalStorage();
+    this.loadCategoriesFromLocalStorage();
   }
 }

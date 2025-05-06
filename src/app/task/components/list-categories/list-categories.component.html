@@ -2,12 +2,14 @@
     <thead>
         <tr>
             <th>Category</th>
+            <th>Buttons</th>
         </tr>
     </thead>
     <tbody>
-        @for (item of categories; track item.id) {
+        @for (item of categories(); track item.id) {
          <tr>
             <td>{{item.name}}</td>
+            <td><button (click)="taskService.deleteCategoryById(item.id)">delete</button></td>
          </tr>
         }
     </tbody>

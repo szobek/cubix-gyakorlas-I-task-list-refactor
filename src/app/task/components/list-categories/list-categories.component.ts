@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
 
@@ -12,6 +12,8 @@ export class ListCategoriesComponent {
   taskService:TaskService=inject(TaskService);
   categories;
   constructor() {
-    this.categories=this.taskService.categories();
+    this.categories=computed(()=>
+      this.taskService.categories().filter((category) => category.name !== '')
+    );
   }
 }
