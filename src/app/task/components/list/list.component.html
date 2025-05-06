@@ -4,7 +4,7 @@ Completed Tasks:<b>{{completedTasks().length}}</b>
 <hr>
 Categories:
 @for (category of categoryValues; track category) {
-    <span class="category-span" [routerLink]="['../category', category]"  >{{category}} </span>
+    <span class="category-span" [routerLink]="['../category', category.name]"  >{{category.name}} </span>
 }
 @for(task of incompletedTasks();track task.id) {
     <cgyir-task-item [task]="task" />

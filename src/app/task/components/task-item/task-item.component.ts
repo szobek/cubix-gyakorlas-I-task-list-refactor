@@ -4,6 +4,7 @@ import { Task } from '../../models/task';
 import { TaskDirective } from '../../directives/task.directive';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'cgyir-task-item',

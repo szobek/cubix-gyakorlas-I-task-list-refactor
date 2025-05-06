@@ -1,7 +1,6 @@
 import { Component, computed, HostListener, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
-import { Categories } from '../../enums/categories.enum';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -13,8 +12,8 @@ import { Router, RouterLink } from '@angular/router';
 export class ListComponent {
   taskService: TaskService = inject(TaskService);
   router:Router=inject(Router);
-  categoriesEnum = Categories;
-  categoryValues = Object.values(Categories);
+ 
+  categoryValues = this.taskService.categories();
   incompletedTasks;
   completedTasks;
   constructor() {
