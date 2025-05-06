@@ -15,6 +15,17 @@ export class CreateCategoriesComponent {
   router: Router = inject(Router);
   category:Category = { name: '' } as Category;
   createCategory(): void {
+    if (!this.category.name) {
+      alert('Please enter a category name.');
+      return;
+    }
+    if (this.category.name.length < 3) {
+      alert('Category name must be at least 3 characters long.');
+      return;
+    }
+
+
+
     this.taskService.createCategory(this.category).then(() => {
       this.category = { name: '' } as Category;
     }).then(() => {
