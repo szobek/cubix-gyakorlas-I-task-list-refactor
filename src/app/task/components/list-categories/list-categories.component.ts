@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'cgyir-list-categories',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './list-categories.component.html',
   styleUrl: './list-categories.component.scss',
 })
