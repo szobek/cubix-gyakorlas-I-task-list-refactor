@@ -3,6 +3,12 @@
         <h2>{{ currentTask.title }}</h2>
         <p>{{ currentTask.description }}</p>
         <p>Category: {{ currentTask.category }}</p>
+        @if(currentTask.completed) {
+            <p>Completed</p>
+        }
+        @else {
+            <p>Not completed</p>
+        }
     </div>
 } @else {
     <p>No task selected.</p>
