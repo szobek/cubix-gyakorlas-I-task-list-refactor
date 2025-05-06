@@ -23,6 +23,18 @@ export class CreateCategoriesComponent {
       alert('Category name must be at least 3 characters long.');
       return;
     }
+    if (this.category.name.length > 20) {
+      alert('Category name must be less than 20 characters long.');
+      return;
+    }
+    if (!/^[a-zA-Z ]+$/.test(this.category.name)) {
+      alert('Category name can only contain letters and spaces.');
+      return;
+    }
+    if (this.category.name.trim() === '') {
+      alert('Category name cannot be empty or whitespace.');
+      return;
+    }
 
 
 
