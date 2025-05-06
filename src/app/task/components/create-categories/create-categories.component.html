@@ -1,13 +1,14 @@
-<div>
+<div class="base-card">
     <form (ngSubmit)="createCategory()">
         <input 
+        class="base-input"
             type="text" 
             [(ngModel)]="category.name" 
             name="category" 
             placeholder="Category Name" 
             autofocus
         />
-        <button type="submit">save</button>
+        <button class="base-button" type="submit">save</button>
             
     </form>
 </div>

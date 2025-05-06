@@ -3,12 +3,7 @@ div {
     flex-direction: column;
     align-items: center;
     input {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 10px;
-        margin-bottom: 10px;
-        max-width: 80%;
-        min-width: 100px;
+        @extend .base-input;
     }
     button{
         background-color: #007bff;
