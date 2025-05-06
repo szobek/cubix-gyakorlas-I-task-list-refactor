@@ -6,6 +6,12 @@
         <div [class.important]="task.important" class="task-card" [routerLink]="['../../',task.id]" >
             <h3>{{ task.title }}</h3>
             <p>{{ task.description }}</p>
+            @if(task.completed) {
+                <p>Completed</p>
+            }
+            @else {
+                <p>Not completed</p>
+            }
         </div>
     }
 </div>
@@ -16,6 +22,12 @@
         <div [class.important]="task.important" class="task-card" [routerLink]="['../../',task.id]" >
             <h3>{{ task.title }}</h3>
             <p>{{ task.description }}</p>
+            @if(task.completed) {
+                <p>Completed</p>
+            }
+            @else {
+                <p>Not completed</p>
+            }
         </div>
     }
 </div>
