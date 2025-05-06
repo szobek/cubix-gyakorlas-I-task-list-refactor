@@ -12,7 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ebebeb;
+    background: linear-gradient(135deg, #c6c9d6, #6e617a);
+    color: whitesmoke;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -24,6 +25,7 @@
     }
   }
   .important {
-    background-color: #ffeb3b;
+    background: linear-gradient(135deg, #c6c9d6, #c7eb48);
+    color: black;
   }
 }
