@@ -1,16 +1,22 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Task } from '../models/task';
+import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
+  private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
   constructor() {
     this.loadTasksFromLocalStorage();
+    this.loadCategoriesFromLocalStorage();
   }
   get tasks(): WritableSignal<Task[]> {
     return this._tasks;
+  }
+  get categories(): WritableSignal<Category[]> {
+    return this._categories;
   }
   createTask(task: Task): Promise<void> {
     return new Promise<void>((resolve) => {
@@ -21,6 +27,20 @@ export class TaskService {
       resolve();
     });
   }
+  createCategory(category: Category): Promise<void> {
+    return new Promise<void>((resolve,reject) => {
+      const categories = this._categories();
+      category.id = categories.length ? Math.max(...categories.map((c) => c.id)) + 1 : 1;
+      if (categories.some((c) => c.name === category.name)) {
+        reject('Category already exists');
+        return;
+      }
+      this._categories.update((categories) => [...categories, category]);
+      this.saveCategoryToLocalStorage();
+      resolve();
+    });
+  }
+
   saveTaskToLocalStorage(): void {
     localStorage.setItem('tasks', JSON.stringify(this._tasks()));
   }
@@ -43,5 +63,12 @@ export class TaskService {
     if(!confirm('Are you sure you want to delete this task?')) return;
     this._tasks.update((tasks) => tasks.filter((t) => t.id!==id));
     this.saveTaskToLocalStorage();
+  }
+
+  saveCategoryToLocalStorage(): void {
+    localStorage.setItem('categories', JSON.stringify(this._categories()));
+  }
+  loadCategoriesFromLocalStorage(): void {
+    this._categories.set(JSON.parse(localStorage.getItem('categories') || '[]'));
   }
 }
