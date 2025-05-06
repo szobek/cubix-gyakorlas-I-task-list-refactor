@@ -1,5 +1,6 @@
 @if (currentTask) {
-    <div class="task-item-view">
+    <div class="task-item-view" [class.important]="currentTask.important">
+        <h1>Task Details</h1>
         <h2>{{ currentTask.title }}</h2>
         <p>{{ currentTask.description }}</p>
         <p>Category: {{ currentTask.category }}</p>

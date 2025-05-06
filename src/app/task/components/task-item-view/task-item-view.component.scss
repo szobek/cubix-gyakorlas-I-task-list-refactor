@@ -1,4 +1,7 @@
 .task-item-view {
+    &.important {
+        background-color: #ffeb3b;
+    }
     display: flex;
     flex-direction: column;
     gap: 1rem;
