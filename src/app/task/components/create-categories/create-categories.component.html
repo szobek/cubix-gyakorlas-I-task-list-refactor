@@ -1,3 +1,13 @@
-<p>creat-categories works!</p>
-<input type="text" [(ngModel)]="category.name" placeholder="Category Name" />
-    <button (click)="createCategory()">save</button>
+<div>
+    <form (ngSubmit)="createCategory()">
+        <input 
+            type="text" 
+            [(ngModel)]="category.name" 
+            name="category" 
+            placeholder="Category Name" 
+            autofocus
+        />
+        <button type="submit">save</button>
+            
+    </form>
+</div>

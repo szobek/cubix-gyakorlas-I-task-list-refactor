@@ -3,7 +3,7 @@
     <input type="text" name="" id="" placeholder="description" maxlength="200" [(ngModel)]="task.description">
     <select name="" id="" [(ngModel)]="task.category" >
         @for(category of categoryValues; track category){
-            <option value="{{category.name}}">{{category.name}}</option>
+            <option value="{{category?.name}}">{{category?.name}}</option>
         }
     </select>
     <select name="" id="" [(ngModel)]="task.important" >

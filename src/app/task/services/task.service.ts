@@ -69,6 +69,6 @@ export class TaskService {
     localStorage.setItem('categories', JSON.stringify(this._categories()));
   }
   loadCategoriesFromLocalStorage(): void {
-    this._categories.set(JSON.parse(localStorage.getItem('categories') || '[]'));
+    this._categories.set(JSON.parse(localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'));
   }
 }
