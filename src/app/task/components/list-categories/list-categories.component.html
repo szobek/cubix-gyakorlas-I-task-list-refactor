@@ -12,6 +12,7 @@
             <td>@if(item.name!=='Default'){
                 <button (click)="taskService.deleteCategoryById(item.id)">delete</button>    
                 <button routerLink="/tasks/category/{{item.name}}">list tasks</button>
+                <button routerLink="/tasks/category/modify/{{item.id}}">edit category</button>
             }</td>
          </tr>
         }

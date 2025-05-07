@@ -1,1 +1,9 @@
-<p>modify-categories works!</p>
+<h1>Modify category</h1>
+<div>
+    @if(currentCategory){
+        <form (ngSubmit)="taskService.updateCategory(lastCategoryName, currentCategory)">
+            <input type="text" [(ngModel)]="currentCategory.name" placeholder="Category Name" name="category-name"/>
+            <button type="submit">Update</button>
+        </form>
+    }
+</div>

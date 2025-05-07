@@ -5,6 +5,7 @@ import { TaskItemViewComponent } from './components/task-item-view/task-item-vie
 import { ListByCategoryComponent } from './components/list-by-category/list-by-category.component';
 import { ListCategoriesComponent } from './components/list-categories/list-categories.component';
 import { CreateCategoriesComponent } from './components/create-categories/create-categories.component';
+import { ModifyCategoriesComponent } from './components/modify-categories/modify-categories.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'create', component: CreateComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path: 'categories/list', component: ListCategoriesComponent},
     {path: 'categories/create', component: CreateCategoriesComponent},
     {path: 'category/:category', component: ListByCategoryComponent},
+    {path: 'category/modify/:category', component: ModifyCategoriesComponent},
 
 
 ];

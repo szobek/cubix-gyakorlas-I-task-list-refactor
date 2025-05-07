@@ -1,11 +1,13 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Task } from '../models/task';
 import { Category } from '../models/category.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
+private readonly router=inject(Router);
   private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
   private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
   constructor() {
@@ -79,5 +81,35 @@ export class TaskService {
     this._categories.update((categories) => categories.filter((c) => c.id!==id));
     this.saveCategoriesToLocalStorage();
     this.loadCategoriesFromLocalStorage();
+  }
+
+  updateCategory(lastCategory:string,category: Category) {
+    try{
+      this._categories.update((categories) =>
+        categories.map((c) => {
+          if (c.id===category.id) {
+            return { ...c, name: category.name };
+          }
+          return c;
+        })
+      );
+      this.saveCategoriesToLocalStorage();
+      this.loadCategoriesFromLocalStorage();
+      this.tasks.update((tasks) =>
+        tasks.map((t) => {
+          if (t.category===lastCategory) {
+            return { ...t, category: category.name };
+          }
+          return t;
+        })
+      );
+      this.saveTaskToLocalStorage();
+      this.loadTasksFromLocalStorage();
+      this.router.navigate(['/tasks/categories/list']);
+      
+    }catch(e) {
+      console.error(e);
+    }
+    
   }
 }

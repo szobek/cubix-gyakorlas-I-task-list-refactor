@@ -1,11 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '../../services/task.service';
+import { Category } from '../../models/category.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'cgyir-modify-categories',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './modify-categories.component.html',
   styleUrl: './modify-categories.component.scss'
 })
 export class ModifyCategoriesComponent {
-
+  taskService: TaskService=inject(TaskService);
+  activatedRoute: ActivatedRoute=inject(ActivatedRoute);
+  id: string | null=null;
+  currentCategory: Category | null=null;
+  lastCategoryName: string ='';
+  ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.paramMap.get('category');
+    this.taskService.categories().forEach((category: Category) => {
+      if (category.id===Number(this.id)) {
+        this.currentCategory=category;
+        this.lastCategoryName=category.name;
+      }
+    });
+  }
 }
