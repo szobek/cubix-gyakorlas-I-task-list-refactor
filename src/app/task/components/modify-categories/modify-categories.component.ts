@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './modify-categories.component.scss'
 })
 export class ModifyCategoriesComponent {
-  taskService: TaskService=inject(TaskService);
-  activatedRoute: ActivatedRoute=inject(ActivatedRoute);
+  protected readonly taskService: TaskService=inject(TaskService);
+  private readonly activatedRoute: ActivatedRoute=inject(ActivatedRoute);
   id: string | null=null;
   currentCategory: Category | null=null;
   lastCategoryName: string ='';

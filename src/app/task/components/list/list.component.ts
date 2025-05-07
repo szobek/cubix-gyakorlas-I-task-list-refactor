@@ -12,7 +12,6 @@ import { Router, RouterLink } from '@angular/router';
 export class ListComponent {
   taskService: TaskService = inject(TaskService);
   router:Router=inject(Router);
- 
   categoryValues = this.taskService.categories();
   incompletedTasks;
   completedTasks;

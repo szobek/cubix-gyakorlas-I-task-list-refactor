@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './list-categories.component.scss',
 })
 export class ListCategoriesComponent {
-  taskService:TaskService=inject(TaskService);
+  protected readonly taskService:TaskService=inject(TaskService);
   categories;
   constructor() {
     this.categories=computed(()=>

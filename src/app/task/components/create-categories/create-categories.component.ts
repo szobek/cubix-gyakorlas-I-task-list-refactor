@@ -35,9 +35,6 @@ export class CreateCategoriesComponent {
       alert('Category name cannot be empty or whitespace.');
       return;
     }
-
-
-
     this.taskService.createCategory(this.category).then(() => {
       this.category = { name: '' } as Category;
     }).then(() => {

@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { Task } from '../models/task';
+import { Task } from '../models/task.model';
 import { Category } from '../models/category.model';
 import { Router } from '@angular/router';
 
@@ -7,25 +7,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class TaskService {
-updateTask(task: Task) {
-  this._tasks.update((tasks) =>
-    tasks.map((t) => {
-      if (t.id===task.id) {
-        return { ...t, 
-          title: task.title, 
-          description: task.description, 
-          important: task.important, 
-          category: task.category 
-        };
-      }
-      return t;
-    })
-  );
-    this.saveTaskToLocalStorage();
-}
-private readonly router=inject(Router);
-  private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
-  private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
+  private readonly router = inject(Router);
+  private _tasks: WritableSignal<Task[]> = signal<Task[]>([]);
+  private _categories: WritableSignal<Category[]> = signal<Category[]>([]);
   constructor() {
     this.loadTasksFromLocalStorage();
     this.loadCategoriesFromLocalStorage();
@@ -35,6 +19,23 @@ private readonly router=inject(Router);
   }
   get categories(): WritableSignal<Category[]> {
     return this._categories;
+  }
+  updateTask(task: Task) {
+    this._tasks.update((tasks) =>
+      tasks.map((t) => {
+        if (t.id === task.id) {
+          return {
+            ...t,
+            title: task.title,
+            description: task.description,
+            important: task.important,
+            category: task.category,
+          };
+        }
+        return t;
+      })
+    );
+    this.saveTaskToLocalStorage();
   }
   createTask(task: Task): Promise<void> {
     return new Promise<void>((resolve) => {
@@ -46,9 +47,11 @@ private readonly router=inject(Router);
     });
   }
   createCategory(category: Category): Promise<void> {
-    return new Promise<void>((resolve,reject) => {
+    return new Promise<void>((resolve, reject) => {
       const categories = this._categories();
-      category.id = categories.length ? Math.max(...categories.map((c) => c.id)) + 1 : 1;
+      category.id = categories.length
+        ? Math.max(...categories.map((c) => c.id)) + 1
+        : 1;
       if (categories.some((c) => c.name === category.name)) {
         reject('Category already exists');
         return;
@@ -67,8 +70,8 @@ private readonly router=inject(Router);
   modifyTaskComplete(task: Task): void {
     this._tasks.update((tasks) =>
       tasks.map((t) => {
-        if (t.id===task.id) {
-          return { ...t, completed:!t.completed };
+        if (t.id === task.id) {
+          return { ...t, completed: !t.completed };
         }
         return t;
       })
@@ -77,71 +80,71 @@ private readonly router=inject(Router);
   }
   deleteTaskById(id: number): void {
     if (!id) return;
-    if(!confirm('Are you sure you want to delete this task?')) return;
-    this._tasks.update((tasks) => tasks.filter((t) => t.id!==id));
+    if (!confirm('Are you sure you want to delete this task?')) return;
+    this._tasks.update((tasks) => tasks.filter((t) => t.id !== id));
     this.saveTaskToLocalStorage();
   }
   saveCategoriesToLocalStorage(): void {
     localStorage.setItem('categories', JSON.stringify(this._categories()));
   }
   loadCategoriesFromLocalStorage(): void {
-    this._categories.set(JSON.parse(localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'));
+    this._categories.set(
+      JSON.parse(
+        localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'
+      )
+    );
   }
   deleteCategoryById(id: number): void {
-    let lastCategoryName='';
+    let lastCategoryName = '';
     if (!id) return;
-    if(!confirm('Are you sure you want to delete this category?')) return;
-    if(id===1) {
+    if (!confirm('Are you sure you want to delete this category?')) return;
+    if (id === 1) {
       alert('You cannot delete the default category.');
       return;
     }
     this.categories().forEach((category: Category) => {
-      if (category.id===id) {
-        lastCategoryName=category.name;
+      if (category.id === id) {
+        lastCategoryName = category.name;
       }
     });
     this.tasks.update((tasks) =>
       tasks.map((t) => {
-        if (t.category===lastCategoryName) {
+        if (t.category === lastCategoryName) {
           return { ...t, category: 'Default' };
         }
         return t;
       })
     );
-    this._categories.update((categories) => categories.filter((c) => c.id!==id));
+    this._categories.update((categories) =>
+      categories.filter((c) => c.id !== id)
+    );
     this.saveCategoriesToLocalStorage();
     this.saveTaskToLocalStorage();
-    this.loadCategoriesFromLocalStorage();
-    this.loadTasksFromLocalStorage();
   }
 
-  updateCategory(lastCategory:string,category: Category) {
-    try{
+  updateCategory(lastCategory: string, category: Category) {
+    try {
       this._categories.update((categories) =>
         categories.map((c) => {
-          if (c.id===category.id) {
+          if (c.id === category.id) {
             return { ...c, name: category.name };
           }
           return c;
         })
       );
-      this.saveCategoriesToLocalStorage();
-      this.loadCategoriesFromLocalStorage();
       this.tasks.update((tasks) =>
         tasks.map((t) => {
-          if (t.category===lastCategory) {
+          if (t.category === lastCategory) {
             return { ...t, category: category.name };
           }
           return t;
         })
       );
       this.saveTaskToLocalStorage();
-      this.loadTasksFromLocalStorage();
+      this.saveCategoriesToLocalStorage();
       this.router.navigate(['/tasks/categories/list']);
-      
-    }catch(e) {
+    } catch (e) {
       console.error(e);
     }
-    
   }
 }

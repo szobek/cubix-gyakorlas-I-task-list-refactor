@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { TaskTitlePipe } from '../../pipes/task-title.pipe';
-import { Task } from '../../models/task';
+import { Task } from '../../models/task.model';
 import { TaskDirective } from '../../directives/task.directive';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
@@ -14,5 +14,5 @@ import { JsonPipe } from '@angular/common';
 })
 export class TaskItemComponent {
 @Input() task?: Task;
-taskService:TaskService=inject(TaskService)
+protected readonly taskService:TaskService=inject(TaskService)
 }

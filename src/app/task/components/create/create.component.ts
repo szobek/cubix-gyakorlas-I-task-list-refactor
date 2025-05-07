@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Task } from '../../models/task';
+import { Task } from '../../models/task.model';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -12,15 +12,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
-
   taskService: TaskService=inject(TaskService);
   authService: AuthService=inject(AuthService);
   activatedRoute: ActivatedRoute=inject(ActivatedRoute);
   router: Router=inject(Router);
   categoryValues=this.taskService.categories();
   id:string|null=null
-  currentTask: Task | null=null;
-  task: Task = {
+  currentTask:Task|null=null;
+  task:Task={
     id: 0,
     title: '',
     description: '',

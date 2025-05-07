@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input } from '@angular/core';
-import { Task } from '../models/task';
+import { Task } from '../models/task.model';
 
 @Directive({
   selector: '[cgyirTask]'

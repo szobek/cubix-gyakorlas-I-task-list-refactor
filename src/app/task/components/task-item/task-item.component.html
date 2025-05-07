@@ -11,7 +11,6 @@
         <p>Author: {{ task.user }}</p>
     </div>
     <div class="buttons">
-
         @if(task.completed){
         <button (click)="taskService.modifyTaskComplete(task)">
             <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
