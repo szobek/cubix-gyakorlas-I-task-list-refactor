@@ -72,15 +72,31 @@ private readonly router=inject(Router);
     this._categories.set(JSON.parse(localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'));
   }
   deleteCategoryById(id: number): void {
+    let lastCategoryName='';
     if (!id) return;
     if(!confirm('Are you sure you want to delete this category?')) return;
     if(id===1) {
       alert('You cannot delete the default category.');
       return;
     }
+    this.categories().forEach((category: Category) => {
+      if (category.id===id) {
+        lastCategoryName=category.name;
+      }
+    });
+    this.tasks.update((tasks) =>
+      tasks.map((t) => {
+        if (t.category===lastCategoryName) {
+          return { ...t, category: 'Default' };
+        }
+        return t;
+      })
+    );
     this._categories.update((categories) => categories.filter((c) => c.id!==id));
     this.saveCategoriesToLocalStorage();
+    this.saveTaskToLocalStorage();
     this.loadCategoriesFromLocalStorage();
+    this.loadTasksFromLocalStorage();
   }
 
   updateCategory(lastCategory:string,category: Category) {
