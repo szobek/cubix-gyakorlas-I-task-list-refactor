@@ -18,7 +18,8 @@ főoldal,még nincs tartalom
 itt jelennek meg a taskok, felül a még nem készek, alul a készek. Itt a taskokon vannak különböző gombok:  
     - késznek lehet jelőlni  
     - lehet törölni  
-    - meg lehet nézni  
+    - meg lehet nézni 
+    - lehet módosítani   
     Felül a kategória nevekre kattintva az adott kategória taskjai jelennek meg.
     Kiírja,hogy mennyi a kész/nem kész taskok száma.  
 
