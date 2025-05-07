@@ -7,6 +7,22 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class TaskService {
+updateTask(task: Task) {
+  this._tasks.update((tasks) =>
+    tasks.map((t) => {
+      if (t.id===task.id) {
+        return { ...t, 
+          title: task.title, 
+          description: task.description, 
+          important: task.important, 
+          category: task.category 
+        };
+      }
+      return t;
+    })
+  );
+    this.saveTaskToLocalStorage();
+}
 private readonly router=inject(Router);
   private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
   private _categories: WritableSignal<Category[]>=signal<Category[]>([]);

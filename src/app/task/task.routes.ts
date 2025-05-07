@@ -9,6 +9,7 @@ import { ModifyCategoriesComponent } from './components/modify-categories/modify
 export const routes: Routes = [
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'create', component: CreateComponent},
+    { path: 'modify/:id', component: CreateComponent},
     { path: 'list', component: ListComponent},
     { path: ':id', component: TaskItemViewComponent},
     {path: 'categories/list', component: ListCategoriesComponent},

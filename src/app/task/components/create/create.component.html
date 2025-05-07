@@ -10,5 +10,10 @@
         <option value="true">important</option>
         <option value="false">not important</option>
     </select>
-    <button (click)="saveTask()">save</button>
+    @if(currentTask){
+        <button (click)="updateTask()">update</button>
+    }
+    @else {
+        <button (click)="saveTask()">save</button>
+    }
 </div>
