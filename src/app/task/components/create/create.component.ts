@@ -16,6 +16,7 @@ export class CreateComponent {
   authService: AuthService=inject(AuthService);
   activatedRoute: ActivatedRoute=inject(ActivatedRoute);
   router: Router=inject(Router);
+
   categoryValues=this.taskService.categories();
   id:string|null=null
   currentTask:Task|undefined=undefined;
@@ -28,6 +29,7 @@ export class CreateComponent {
     category: this.categoryValues[0].name,
     important: false,
   });
+
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.currentTask=this.taskService.getTaskById(Number(this.id))
@@ -36,8 +38,8 @@ export class CreateComponent {
         return { ...task, ...this.currentTask };
       }); 
     }
-    
   }
+  
   saveTask() {
     if (!this.task().title||!this.task().description) return;
     if (this.task().title.length>20||this.task().description.length>200)
