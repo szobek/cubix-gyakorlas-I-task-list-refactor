@@ -18,12 +18,21 @@ export class AuthService {
   get username() {
     return this._username;
   }
-  login(username: string) {
-    if (username.length > 0) {
-      localStorage.setItem('username', username);
-      this._username.set(username);
-      this.router.navigate(['']);
+  login(username: string):boolean {
+    try{
+      if (username.length > 0) {
+        localStorage.setItem('username', username);
+        this._username.set(username);
+        this.router.navigate(['']);
+        return true
+      }else{
+        return false
+      }
+    }catch(e){
+      console.error(e);
+      return false
     }
+    
   }
   logout() {
     localStorage.removeItem('username');
