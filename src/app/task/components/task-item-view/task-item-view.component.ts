@@ -5,17 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'cgyir-task-item-view',
-  imports: [],
   templateUrl: './task-item-view.component.html',
   styleUrl: './task-item-view.component.scss',
 })
 export class TaskItemViewComponent {
   taskService: TaskService=inject(TaskService);
   activatedRoute: ActivatedRoute=inject(ActivatedRoute);
+
   id: string | null=null;
   currentTask: Task | undefined=undefined;
+
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.id=this.activatedRoute.snapshot.paramMap.get('id');
     this.currentTask=this.taskService.getTaskById(Number(this.id))
   }
 }
