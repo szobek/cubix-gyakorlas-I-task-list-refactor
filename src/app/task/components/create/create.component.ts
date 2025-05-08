@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
@@ -19,7 +19,7 @@ export class CreateComponent {
   categoryValues=this.taskService.categories();
   id:string|null=null
   currentTask:Task|undefined=undefined;
-  task:Task={
+  protected task:WritableSignal<Task>=signal<Task>({
     id: 0,
     title: '',
     description: '',
@@ -27,38 +27,41 @@ export class CreateComponent {
     completed: false,
     category: this.categoryValues[0].name,
     important: false,
-  };
+  });
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.currentTask=this.taskService.getTaskById(Number(this.id))
     if(this.currentTask!==undefined) {
-      Object.assign(this.task,this.currentTask)
+      this.task.update((task) => {
+        return { ...task, ...this.currentTask };
+      }); 
     }
     
   }
   saveTask() {
-    if (!this.task.title||!this.task.description) return;
-    if (this.task.title.length>20||this.task.description.length>200)
+    if (!this.task().title||!this.task().description) return;
+    if (this.task().title.length>20||this.task().description.length>200)
       return;
-    if (this.task.title.trim()===''||this.task.description.trim()==='')
+    if (this.task().title.trim()===''||this.task().description.trim()==='')
       return;
-    const task = { ...this.task };
-    if(this.taskService.createTask(task)){
-      this.task.title='';
-      this.task.description='';
+    const createdTask = { ...this.task() };
+    if(this.taskService.createTask(createdTask)){
+      this.task().title='';
+      this.task().description='';
       this.router.navigateByUrl('/tasks/list');
     }
   }
   updateTask() {
-    if (!this.task.title||!this.task.description) return;
-    if (this.task.title.length>20||this.task.description.length>200)
+    if (!this.task().title||!this.task().description) return;
+    if (this.task().title.length>20||this.task().description.length>200)
       return;
-    if (this.task.title.trim()===''||this.task.description.trim()==='')
+    if (this.task().title.trim()===''||this.task().description.trim()==='')
       return;
-    const task = { ...this.task };
-    this.taskService.updateTask(task);
-    this.router.navigateByUrl('/tasks/list');
-    this.task.title='';
-    this.task.description='';
+    const task = { ...this.task() };
+    if(this.taskService.updateTask(task)){
+      this.router.navigateByUrl('/tasks/list');
+      this.task().title='';
+      this.task().description='';
+    }
   }
 }

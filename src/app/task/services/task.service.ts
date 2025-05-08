@@ -25,28 +25,35 @@ export class TaskService {
     return this._categories;
   }
 
-  updateTask(task: Task) {
-    if (!task) return;
-    if (!confirm('Are you sure you want to update this task?')) return;
-    if (!task.title || !task.description) return;
-    if (task.title.length > 20 || task.description.length > 200) return;
-    if (task.title.trim() === '' || task.description.trim() === '') return;
+  updateTask(task: Task):boolean {
+    if (!task) return false;
+    if (!confirm('Are you sure you want to update this task?')) return false;
+    if (!task.title || !task.description) return false;
+    if (task.title.length > 20 || task.description.length > 200) return false;
+    if (task.title.trim() === '' || task.description.trim() === '') return false;
+    try{
+      this._tasks.update((tasks) =>
+        tasks.map((t) => {
+          if (t.id === task.id) {
+            return {
+              ...t,
+              title: task.title,
+              description: task.description,
+              important: Boolean(task.important),
+              category: task.category,
+            };
+          }
+          return t;
+        })
+      );
+      this.saveTaskToLocalStorage();
+      return true
+    }catch(e){
+      console.error(e);
+      return false
+    }
     
-    this._tasks.update((tasks) =>
-      tasks.map((t) => {
-        if (t.id === task.id) {
-          return {
-            ...t,
-            title: task.title,
-            description: task.description,
-            important: Boolean(task.important),
-            category: task.category,
-          };
-        }
-        return t;
-      })
-    );
-    this.saveTaskToLocalStorage();
+    
   }
 
   createTask(task: Task): boolean {
