@@ -11,14 +11,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './modify-categories.component.scss'
 })
 export class ModifyCategoriesComponent {
-  protected readonly taskService: TaskService=inject(TaskService);
-  private readonly activatedRoute: ActivatedRoute=inject(ActivatedRoute);
-  id: string | null=null;
-  currentCategory: Category | undefined=undefined;
-  lastCategoryName: string ='';
+  protected readonly taskService:TaskService=inject(TaskService);
+  private readonly activatedRoute:ActivatedRoute=inject(ActivatedRoute);
+
+  private  _id:string | null=null;
+  currentCategory:Category | undefined=undefined;
+  lastCategoryName:string='';
+  
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.paramMap.get('category');
-    this.currentCategory= this.taskService.getCategoryById(Number(this.id))
+    this._id=this.activatedRoute.snapshot.paramMap.get('category')
+    this.currentCategory=this.taskService.getCategoryById(Number(this._id))
     this.lastCategoryName=this.currentCategory?.name||''
   }
 }
