@@ -43,11 +43,11 @@ export class CreateComponent {
     if (this.task.title.trim()===''||this.task.description.trim()==='')
       return;
     const task = { ...this.task };
-    this.taskService.createTask(task).then(() => {
+    if(this.taskService.createTask(task)){
+      this.task.title='';
+      this.task.description='';
       this.router.navigateByUrl('/tasks/list');
-    });
-    this.task.title='';
-    this.task.description='';
+    }
   }
   updateTask() {
     if (!this.task.title||!this.task.description) return;

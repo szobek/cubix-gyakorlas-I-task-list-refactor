@@ -49,30 +49,31 @@ export class TaskService {
     this.saveTaskToLocalStorage();
   }
 
-  createTask(task: Task): Promise<void> {
-    return new Promise<void>((resolve) => {
+  createTask(task: Task): boolean {
+    if (!task) return false;
+    try{
       const tasks = this._tasks();
       task.id = tasks.length ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
       this._tasks.update((tasks) => [...tasks, task]);
       this.saveTaskToLocalStorage();
-      resolve();
-    });
+      return true
+    }catch(e){
+      console.error(e);
+      return false
+    }
+      
   }
 
-  createCategory(category: Category): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  createCategory(category: Category): void {
       const categories = this._categories();
       category.id = categories.length
         ? Math.max(...categories.map((c) => c.id)) + 1
         : 1;
       if (categories.some((c) => c.name === category.name)) {
-        reject('Category already exists');
         return;
       }
       this._categories.update((categories) => [...categories, category]);
       this.saveCategoriesToLocalStorage();
-      resolve();
-    });
   }
 
   saveTaskToLocalStorage(): void {
