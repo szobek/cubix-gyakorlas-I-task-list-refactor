@@ -18,7 +18,7 @@ export class CreateComponent {
   router: Router=inject(Router);
   categoryValues=this.taskService.categories();
   id:string|null=null
-  currentTask:Task|null=null;
+  currentTask:Task|undefined=undefined;
   task:Task={
     id: 0,
     title: '',
@@ -30,16 +30,11 @@ export class CreateComponent {
   };
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.taskService.tasks().forEach((task: Task) => {
-      if (task.id===Number(this.id)) {
-        this.currentTask=task;
-        this.task.title=this.currentTask.title
-        this.task.description=this.currentTask.description
-        this.task.category=this.currentTask.category
-        this.task.important=this.currentTask.important
-        this.task.id=this.currentTask.id
-      }
-    });
+    this.currentTask=this.taskService.getTaskById(Number(this.id))
+    if(this.currentTask!==undefined) {
+      Object.assign(this.task,this.currentTask)
+    }
+    
   }
   saveTask() {
     if (!this.task.title||!this.task.description) return;

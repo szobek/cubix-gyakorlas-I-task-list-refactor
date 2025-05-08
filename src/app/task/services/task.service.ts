@@ -2,6 +2,7 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Task } from '../models/task.model';
 import { Category } from '../models/category.model';
 import { Router } from '@angular/router';
+import { last } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,12 @@ export class TaskService {
   }
 
   updateTask(task: Task) {
+    if (!task) return;
+    if (!confirm('Are you sure you want to update this task?')) return;
+    if (!task.title || !task.description) return;
+    if (task.title.length > 20 || task.description.length > 200) return;
+    if (task.title.trim() === '' || task.description.trim() === '') return;
+    
     this._tasks.update((tasks) =>
       tasks.map((t) => {
         if (t.id === task.id) {
@@ -32,7 +39,7 @@ export class TaskService {
             ...t,
             title: task.title,
             description: task.description,
-            important: task.important,
+            important: Boolean(task.important),
             category: task.category,
           };
         }
@@ -115,11 +122,7 @@ export class TaskService {
       alert('You cannot delete the default category.');
       return;
     }
-    this.categories().forEach((category: Category) => {
-      if (category.id === id) {
-        lastCategoryName = category.name;
-      }
-    });
+    lastCategoryName = this.getCategoryById(id)?.name || '';
     this.tasks.update((tasks) =>
       tasks.map((t) => {
         if (t.category === lastCategoryName) {
@@ -167,5 +170,8 @@ export class TaskService {
 
   getTaskById(id: number): Task | undefined {
     return this._tasks().find((task) => task.id === id);
+  }
+  getImportantTasksByCategory(category: string): Task[] {
+    return this._tasks().filter((task) => {task.category === category && task.important});
   }
 }

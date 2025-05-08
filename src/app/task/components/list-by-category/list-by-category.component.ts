@@ -1,4 +1,4 @@
-import { Component, computed, inject, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
@@ -13,18 +13,11 @@ export class ListByCategoryComponent {
   category: string | null = null;
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly taskService: TaskService = inject(TaskService);
-  private readonly tasks: Task[] = [];
-  importantTasks;
-  notImportantTasks;
-  tasksCountSignal = computed(() => this.tasks.length);
-  constructor() {
-    this.importantTasks = computed(() =>
-      this.tasks.filter((task) => task.important)
-    );
-    this.notImportantTasks = computed(() =>
-      this.tasks.filter((task) => !task.important)
-    );
-  }
+  importantTasks: WritableSignal<Task[]>=signal<Task[]>([]);
+  notImportantTasks: WritableSignal<Task[]>=signal<Task[]>([]);
+  tasksCountSignal = computed(() => {
+    return this.importantTasks().length + this.notImportantTasks().length;
+  });
   get taskCount() {
     return this.tasksCountSignal() === 1
       ? '1 task'
@@ -32,10 +25,11 @@ export class ListByCategoryComponent {
   }
   ngOnInit(): void {
     this.category = this.activatedRoute.snapshot.paramMap.get('category');
-    this.taskService.tasks().forEach((task: Task) => {
-      if (task.category === this.category) {
-        this.tasks.push(task);
-      }
-    });
+    this.importantTasks.set(
+     this.taskService.tasks().filter((task) => task.important && task.category === this.category)
+    )
+    this.notImportantTasks.set(
+     this.taskService.tasks().filter((task) => !task.important && task.category === this.category)
+    )
   }
 }

@@ -14,15 +14,11 @@ export class ModifyCategoriesComponent {
   protected readonly taskService: TaskService=inject(TaskService);
   private readonly activatedRoute: ActivatedRoute=inject(ActivatedRoute);
   id: string | null=null;
-  currentCategory: Category | null=null;
+  currentCategory: Category | undefined=undefined;
   lastCategoryName: string ='';
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('category');
-    this.taskService.categories().forEach((category: Category) => {
-      if (category.id===Number(this.id)) {
-        this.currentCategory=category;
-        this.lastCategoryName=category.name;
-      }
-    });
+    this.currentCategory= this.taskService.getCategoryById(Number(this.id))
+    this.lastCategoryName=this.currentCategory?.name||''
   }
 }
