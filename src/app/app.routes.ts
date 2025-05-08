@@ -8,5 +8,5 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
     { path: 'login', component: LoginComponent},
     {path: 'tasks', canActivate: [authGuard], loadChildren: () => import('./task/task.routes').then(m => m.routes) },
-    // { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'home' }
 ];

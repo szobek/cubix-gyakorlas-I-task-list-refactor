@@ -8,18 +8,22 @@ import { Router } from '@angular/router';
 })
 export class TaskService {
   private readonly router = inject(Router);
-  private _tasks: WritableSignal<Task[]> = signal<Task[]>([]);
-  private _categories: WritableSignal<Category[]> = signal<Category[]>([]);
+  private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
+  private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
+
   constructor() {
     this.loadTasksFromLocalStorage();
     this.loadCategoriesFromLocalStorage();
   }
+
   get tasks(): WritableSignal<Task[]> {
     return this._tasks;
   }
+
   get categories(): WritableSignal<Category[]> {
     return this._categories;
   }
+
   updateTask(task: Task) {
     this._tasks.update((tasks) =>
       tasks.map((t) => {
@@ -37,6 +41,7 @@ export class TaskService {
     );
     this.saveTaskToLocalStorage();
   }
+
   createTask(task: Task): Promise<void> {
     return new Promise<void>((resolve) => {
       const tasks = this._tasks();
@@ -46,6 +51,7 @@ export class TaskService {
       resolve();
     });
   }
+
   createCategory(category: Category): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const categories = this._categories();
@@ -61,12 +67,15 @@ export class TaskService {
       resolve();
     });
   }
+
   saveTaskToLocalStorage(): void {
     localStorage.setItem('tasks', JSON.stringify(this._tasks()));
   }
+
   loadTasksFromLocalStorage(): void {
     this._tasks.set(JSON.parse(localStorage.getItem('tasks') || '[]'));
   }
+
   modifyTaskComplete(task: Task): void {
     this._tasks.update((tasks) =>
       tasks.map((t) => {
@@ -78,15 +87,18 @@ export class TaskService {
     );
     this.saveTaskToLocalStorage();
   }
+
   deleteTaskById(id: number): void {
     if (!id) return;
     if (!confirm('Are you sure you want to delete this task?')) return;
     this._tasks.update((tasks) => tasks.filter((t) => t.id !== id));
     this.saveTaskToLocalStorage();
   }
+
   saveCategoriesToLocalStorage(): void {
     localStorage.setItem('categories', JSON.stringify(this._categories()));
   }
+
   loadCategoriesFromLocalStorage(): void {
     this._categories.set(
       JSON.parse(
@@ -94,6 +106,7 @@ export class TaskService {
       )
     );
   }
+
   deleteCategoryById(id: number): void {
     let lastCategoryName = '';
     if (!id) return;
@@ -146,5 +159,13 @@ export class TaskService {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  getCategoryById(id: number): Category | undefined {
+    return this._categories().find((category) => category.id === id);
+  }
+
+  getTaskById(id: number): Task | undefined {
+    return this._tasks().find((task) => task.id === id);
   }
 }

@@ -13,13 +13,9 @@ export class TaskItemViewComponent {
   taskService: TaskService=inject(TaskService);
   activatedRoute: ActivatedRoute=inject(ActivatedRoute);
   id: string | null=null;
-  currentTask: Task | null=null;
+  currentTask: Task | undefined=undefined;
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.taskService.tasks().forEach((task: Task) => {
-      if (task.id===Number(this.id)) {
-        this.currentTask=task;
-      }
-    });
+    this.currentTask=this.taskService.getTaskById(Number(this.id))
   }
 }
