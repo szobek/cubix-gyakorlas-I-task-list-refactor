@@ -4,15 +4,14 @@ import { Task } from '../../models/task.model';
 import { TaskDirective } from '../../directives/task.directive';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'cgyir-task-item',
-  imports: [TaskTitlePipe,TaskDirective,RouterLink],
+  imports: [TaskTitlePipe, TaskDirective, RouterLink],
   templateUrl: './task-item.component.html',
-  styleUrl: './task-item.component.scss'
+  styleUrl: './task-item.component.scss',
 })
 export class TaskItemComponent {
-@Input() task?: Task;
-protected readonly taskService:TaskService=inject(TaskService)
+  @Input() task?:Task;
+  protected readonly taskService:TaskService=inject(TaskService);
 }
