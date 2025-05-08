@@ -9,12 +9,5 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  authService: AuthService=inject(AuthService);
-  router: Router=inject(Router);
-  constructor() {
-    this.authService.loadUser();
-    if (this.authService.username()===undefined) {
-      this.router.navigate(['/login']);
-    }
-  }
+
 }
