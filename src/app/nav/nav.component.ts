@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import {
-  ActivatedRoute,
   NavigationEnd,
   Router,
   RouterLink,
@@ -16,17 +15,23 @@ import { filter } from 'rxjs';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent {
+  protected readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  menuOpen: boolean = false;
+  private readonly _menuOpen: WritableSignal<boolean> = signal(false);
+
   toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+    this._menuOpen.update((open) => !open);
   }
+  
+  get menuOpen() {
+    return this._menuOpen;
+  }
+
   ngOnInit() {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.menuOpen = false;
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+        this._menuOpen.update(() => false);
       });
   }
-  authService = inject(AuthService);
 }

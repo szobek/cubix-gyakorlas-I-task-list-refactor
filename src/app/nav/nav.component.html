@@ -2,8 +2,8 @@
 <nav class="navbar">
   <div class="navbar-container">
     <div class="brand">Task List</div>
-    <button [class.modify]="menuOpen" class="menu-toggle" (click)="toggleMenu()">☰</button>
-    <ul [class.active]="menuOpen" class="nav-links">
+    <button [class.modify]="menuOpen()" class="menu-toggle" (click)="toggleMenu()">☰</button>
+    <ul [class.active]="menuOpen()" class="nav-links">
       <li><a routerLink="home" routerLinkActive="active">Home</a></li>
       <li><a routerLink="tasks/list" routerLinkActive="active">Task list</a></li>
       <li><a routerLink="tasks/create" routerLinkActive="active">New task</a></li>
