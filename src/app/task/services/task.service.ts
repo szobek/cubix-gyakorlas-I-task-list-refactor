@@ -2,13 +2,13 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Task } from '../models/task.model';
 import { Category } from '../models/category.model';
 import { Router } from '@angular/router';
-import { last } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   private readonly router = inject(Router);
+
   private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
   private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
 
@@ -52,8 +52,6 @@ export class TaskService {
       console.error(e);
       return false
     }
-    
-    
   }
 
   createTask(task: Task): boolean {
