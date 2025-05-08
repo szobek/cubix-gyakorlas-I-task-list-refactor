@@ -11,18 +11,21 @@ import { TaskService } from '../../services/task.service';
 })
 export class ListByCategoryComponent {
   category: string | null = null;
-  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-  private readonly taskService: TaskService = inject(TaskService);
+  private readonly activatedRoute:ActivatedRoute=inject(ActivatedRoute);
+  private readonly taskService:TaskService=inject(TaskService);
+
   importantTasks: WritableSignal<Task[]>=signal<Task[]>([]);
   notImportantTasks: WritableSignal<Task[]>=signal<Task[]>([]);
   tasksCountSignal = computed(() => {
     return this.importantTasks().length + this.notImportantTasks().length;
   });
+
   get taskCount() {
     return this.tasksCountSignal() === 1
       ? '1 task'
       : `${this.tasksCountSignal()} tasks`;
   }
+  
   ngOnInit(): void {
     this.category = this.activatedRoute.snapshot.paramMap.get('category');
     this.importantTasks.set(

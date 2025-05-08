@@ -10,7 +10,9 @@ import { RouterLink } from '@angular/router';
 })
 export class ListCategoriesComponent {
   protected readonly taskService:TaskService=inject(TaskService);
+
   categories;
+  
   constructor() {
     this.categories=computed(()=>
       this.taskService.categories().filter((category) => category.name !== '')

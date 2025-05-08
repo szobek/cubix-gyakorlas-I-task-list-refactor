@@ -19,12 +19,12 @@ export class NavComponent {
   private readonly router = inject(Router);
   private readonly _menuOpen: WritableSignal<boolean> = signal(false);
 
-  toggleMenu() {
-    this._menuOpen.update((open) => !open);
-  }
-  
   get menuOpen() {
     return this._menuOpen;
+  }
+
+  toggleMenu() {
+    this._menuOpen.update((open) => !open);
   }
 
   ngOnInit() {
