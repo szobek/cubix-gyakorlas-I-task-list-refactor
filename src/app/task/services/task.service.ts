@@ -61,7 +61,6 @@ export class TaskService {
       console.error(e);
       return false
     }
-      
   }
 
   createCategory(category: Category): boolean {
@@ -74,7 +73,6 @@ export class TaskService {
       category.id = categories.length
       ? Math.max(...categories.map((c) => c.id)) + 1
       : 1;
-    
     this._categories.update((categories) => [...categories, category]);
     this.saveCategoriesToLocalStorage();
     return true;
@@ -82,7 +80,6 @@ export class TaskService {
       console.error(e);
       return false
     }
-     
   }
 
   saveTaskToLocalStorage(): void {
