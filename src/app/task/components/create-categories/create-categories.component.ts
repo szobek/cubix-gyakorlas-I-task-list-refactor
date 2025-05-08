@@ -5,15 +5,17 @@ import { Category } from '../../models/category.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'cgyir-creatw-categories',
+  selector: 'cgyir-create-categories',
   imports: [FormsModule],
   templateUrl: './create-categories.component.html',
   styleUrl: './create-categories.component.scss',
 })
 export class CreateCategoriesComponent {
-  taskService: TaskService = inject(TaskService);
-  router: Router = inject(Router);
-  category:Category = { name: '' } as Category;
+  taskService:TaskService=inject(TaskService);
+  router:Router=inject(Router);
+
+  category:Category={id:0,name:''}
+
   createCategory(): void {
     if (!this.category.name) {
       alert('Please enter a category name.');
@@ -36,7 +38,6 @@ export class CreateCategoriesComponent {
       return;
     }
     if(this.taskService.createCategory(this.category)){
-
       this.category = { name: '' } as Category;
       const url ="tasks/categories/list";
       this.router.navigateByUrl(url);
