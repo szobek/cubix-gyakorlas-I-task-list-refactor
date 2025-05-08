@@ -64,16 +64,25 @@ export class TaskService {
       
   }
 
-  createCategory(category: Category): void {
-      const categories = this._categories();
+  createCategory(category: Category): boolean {
+    if (!category) return false;
+    const categories = this._categories();
+    if (categories.some((c) => c.name === category.name)) {
+      return false;
+    }
+    try{
       category.id = categories.length
-        ? Math.max(...categories.map((c) => c.id)) + 1
-        : 1;
-      if (categories.some((c) => c.name === category.name)) {
-        return;
-      }
-      this._categories.update((categories) => [...categories, category]);
-      this.saveCategoriesToLocalStorage();
+      ? Math.max(...categories.map((c) => c.id)) + 1
+      : 1;
+    
+    this._categories.update((categories) => [...categories, category]);
+    this.saveCategoriesToLocalStorage();
+    return true;
+    }catch(e){
+      console.error(e);
+      return false
+    }
+     
   }
 
   saveTaskToLocalStorage(): void {

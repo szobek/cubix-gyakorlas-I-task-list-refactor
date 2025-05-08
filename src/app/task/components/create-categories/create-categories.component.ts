@@ -35,14 +35,15 @@ export class CreateCategoriesComponent {
       alert('Category name cannot be empty or whitespace.');
       return;
     }
-    this.taskService.createCategory(this.category).then(() => {
+    if(this.taskService.createCategory(this.category)){
+
       this.category = { name: '' } as Category;
-    }).then(() => {
       const url ="tasks/categories/list";
       this.router.navigateByUrl(url);
-    }).catch((error) => {
-      console.error('Error creating category:', error);
-      alert(error);
-    });
+    }
+    else{
+      console.error('Error creating category');
+      alert('Error creating category');
+    }
   }
 }
