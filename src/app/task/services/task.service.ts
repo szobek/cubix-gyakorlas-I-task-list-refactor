@@ -26,11 +26,8 @@ export class TaskService {
   }
 
   updateTask(task: Task):boolean {
-    if (!task) return false;
     if (!confirm('Are you sure you want to update this task?')) return false;
-    if (!task.title || !task.description) return false;
-    if (task.title.length > 20 || task.description.length > 200) return false;
-    if (task.title.trim() === '' || task.description.trim() === '') return false;
+    if (!task ||!task.title || !task.description ||task.title.length > 20 || task.description.length > 200||task.title.trim() === '' || task.description.trim() === '') return false;
     try{
       this._tasks.update((tasks) =>
         tasks.map((t) => {
