@@ -17,21 +17,17 @@ import { filter } from 'rxjs';
 export class NavComponent {
   protected readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly _menuOpen: WritableSignal<boolean> = signal(false);
-
-  get menuOpen() {
-    return this._menuOpen;
-  }
+  protected menuOpen: WritableSignal<boolean> = signal(false);
 
   toggleMenu() {
-    this._menuOpen.update((open) => !open);
+    this.menuOpen.update((open) => !open);
   }
 
   ngOnInit() {
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
-        this._menuOpen.update(() => false);
+        this.menuOpen.update(() => false);
       });
   }
 }
