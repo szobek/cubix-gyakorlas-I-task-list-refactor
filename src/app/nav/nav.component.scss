@@ -44,6 +44,11 @@
     a {
       color: white;
       text-decoration: none;
+      &.active {
+        color: whitesmoke;
+        font-weight: bold;
+        text-decoration: underline;
+      }
     }
     svg {
       width: 20px;
