@@ -3,10 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Category } from '../../models/category.model';
 import { Router } from '@angular/router';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'cgyir-create-categories',
-  imports: [FormsModule],
+  imports: [FormsModule,MatInputModule],
   templateUrl: './create-categories.component.html',
   styleUrl: './create-categories.component.scss',
 })

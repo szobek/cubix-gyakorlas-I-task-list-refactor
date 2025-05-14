@@ -1,13 +1,9 @@
 <div class="base-card">
     <form (ngSubmit)="createCategory()">
-        <input 
-        class="base-input"
-            type="text" 
-            [(ngModel)]="category.name" 
-            name="category" 
-            placeholder="Category Name" 
-            autofocus
-        />
+        <mat-form-field>
+            <input matInput type="text" [(ngModel)]="category.name" name="category"
+                placeholder="Category Name" autofocus />
+        </mat-form-field>
         <button class="base-button" type="submit">save</button>
     </form>
 </div>
