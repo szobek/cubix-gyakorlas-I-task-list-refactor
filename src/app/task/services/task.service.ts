@@ -11,7 +11,18 @@ export class TaskService {
 
   private _tasks: WritableSignal<Task[]>=signal<Task[]>([]);
   private _categories: WritableSignal<Category[]>=signal<Category[]>([]);
-
+  private readonly CATEGORY_KEY = 'categories';
+  private readonly TASK_KEY = 'tasks';
+  private readonly _MESSAGES={
+    "default_category_delete": "You cannot delete the default category."
+  }
+  private readonly _CONFIRMS={
+    "delete_category": "Are you sure you want to delete this category?",
+    "delete_task": "Are you sure you want to delete this task?",
+    "update_category": "Are you sure you want to update this category?",
+    "update_task": "Are you sure you want to update this task?",
+  }
+private readonly _DEFAULT_CATEGORY:string='[{"name": "Default", "id": 1}]'
   constructor() {
     this.loadTasksFromLocalStorage();
     this.loadCategoriesFromLocalStorage();
@@ -26,8 +37,8 @@ export class TaskService {
   }
 
   updateTask(task: Task):boolean {
-    if (!confirm('Are you sure you want to update this task?')) return false;
-    if (!task ||!task.title || !task.description ||task.title.length > 20 || task.description.length > 200||task.title.trim() === '' || task.description.trim() === '') return false;
+    if (!confirm(this._CONFIRMS.update_task)) {return false};
+    if (!task ||!task.title || !task.description ||task.title.length > 20 || task.description.length > 200||task.title.trim() === '' || task.description.trim() === '') {return false};
     try{
       this._tasks.update((tasks) =>
         tasks.map((t) => {
@@ -85,7 +96,7 @@ export class TaskService {
   }
 
   saveTaskToLocalStorage(): void {
-    localStorage.setItem('tasks', JSON.stringify(this._tasks()));
+    localStorage.setItem(this.TASK_KEY, JSON.stringify(this._tasks()));
   }
 
   loadTasksFromLocalStorage(): void {
@@ -105,30 +116,30 @@ export class TaskService {
   }
 
   deleteTaskById(id: number): void {
-    if (!id) return;
-    if (!confirm('Are you sure you want to delete this task?')) return;
+    if (!id) {return};
+    if (!confirm(this._CONFIRMS.delete_task)) {return};
     this._tasks.update((tasks) => tasks.filter((t) => t.id !== id));
     this.saveTaskToLocalStorage();
   }
 
   saveCategoriesToLocalStorage(): void {
-    localStorage.setItem('categories', JSON.stringify(this._categories()));
+    localStorage.setItem(this.CATEGORY_KEY, JSON.stringify(this._categories()));
   }
 
   loadCategoriesFromLocalStorage(): void {
     this._categories.set(
       JSON.parse(
-        localStorage.getItem('categories') || '[{"name": "Default", "id": 1}]'
+        localStorage.getItem(this.CATEGORY_KEY) || this._DEFAULT_CATEGORY
       )
     );
   }
 
   deleteCategoryById(id: number): void {
     let lastCategoryName = '';
-    if (!id) return;
-    if (!confirm('Are you sure you want to delete this category?')) return;
+    if (!id) {return};
+    if (!confirm(this._CONFIRMS.delete_category)) {return};
     if (id === 1) {
-      alert('You cannot delete the default category.');
+      alert(this._MESSAGES.default_category_delete);
       return;
     }
     lastCategoryName = this.getCategoryById(id)?.name || '';
@@ -149,6 +160,7 @@ export class TaskService {
 
   updateCategory(lastCategory: string, category: Category) {
     try {
+      if (!confirm(this._CONFIRMS.update_category)) {return};
       this._categories.update((categories) =>
         categories.map((c) => {
           if (c.id === category.id) {
