@@ -41,29 +41,37 @@ export class CreateComponent {
   }
   
   saveTask() {
-    if (!this.task().title||!this.task().description) return;
-    if (this.task().title.length>20||this.task().description.length>200)
-      return;
-    if (this.task().title.trim()===''||this.task().description.trim()==='')
-      return;
-    const createdTask = { ...this.task() };
-    if(this.taskService.createTask(createdTask)){
-      this.task().title='';
-      this.task().description='';
+    const task = { ...this.task() };
+    if(this.checkTask(task)){
+      return
+    }
+    if(this.taskService.createTask(task)){
       this.router.navigateByUrl('/tasks/list');
+      this.resetTask()
     }
   }
   updateTask() {
-    if (!this.task().title||!this.task().description) return;
-    if (this.task().title.length>20||this.task().description.length>200)
-      return;
-    if (this.task().title.trim()===''||this.task().description.trim()==='')
-      return;
     const task = { ...this.task() };
+    if(this.checkTask(task)){
+      return
+    }
     if(this.taskService.updateTask(task)){
       this.router.navigateByUrl('/tasks/list');
-      this.task().title='';
-      this.task().description='';
+      this.resetTask()
     }
   }
+  
+  checkTask(task:Task):boolean{
+    return (task.title.length>20||task.title.length===0||task.title.length<3||
+    task.description.length>200||
+    task.title.trim()===''||
+    task.description.trim()==='') ;
+
+  }
+  
+  resetTask() {
+    this.task().title='';
+    this.task().description='';
+  }
+  
 }
