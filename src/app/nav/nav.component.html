@@ -1,7 +1,7 @@
 @if(authService.username()!==undefined){
 <nav class="navbar">
   <div class="navbar-container">
-    <div class="brand">Task List</div>
+    <div class="brand" routerLink="">Task List</div>
     <button [class.modify]="menuOpen()" class="menu-toggle" (click)="toggleMenu()">☰</button>
     <ul [class.active]="menuOpen()" class="nav-links">
       <li><a routerLink="home" routerLinkActive="active">Home</a></li>

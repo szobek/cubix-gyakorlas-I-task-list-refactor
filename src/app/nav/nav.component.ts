@@ -15,9 +15,10 @@ import { filter } from 'rxjs';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent {
-  protected readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
-  protected menuOpen: WritableSignal<boolean> = signal(false);
+  protected readonly authService=inject(AuthService);
+  private readonly router=inject(Router);
+
+  protected menuOpen: WritableSignal<boolean>=signal(false);
 
   toggleMenu() {
     this.menuOpen.update((open) => !open);
